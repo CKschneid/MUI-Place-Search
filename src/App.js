@@ -26,7 +26,8 @@ class App extends Component {
         <div>
           <PlaceSearch floatingLabelText="Location"
                        myKey={myKey}
-                       handlePlaceSelect={this.handlePlaceSelect}/>
+                       handlePlaceSelect={this.handlePlaceSelect}
+                       googleConfig={{}}/>
         </div>
         <div>
           <Card>

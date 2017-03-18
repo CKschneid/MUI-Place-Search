@@ -14,6 +14,14 @@ class PlaceSearch extends Component{
     this.handleNewRequest = this.handleNewRequest.bind(this)
   }
   handleUpdateInput(value){
+  // TODO: add google config props to request string
+/*
+    const {googleConfig} = this.props
+    let customConfig = ''
+    for(configItem in googleConfig){
+      customConfig +=
+    }
+*/
     axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${value}&key=${this.props.myKey}`)
           .then( result => {
             this.setState({ predictions: result.data.predictions})
@@ -46,9 +54,21 @@ class PlaceSearch extends Component{
   }
 }
 
-const {string, func, array, bool, object, node, number} = PropTypes
+const {oneOf, shape, string, func, array, bool, object, node, number} = PropTypes
 PlaceSearch.propTypes = {
+  // Google props
   myKey: string.isRequired,
+  googleConfig: shape({
+    offset: number,
+    location: string, // lat,long
+    radius: number, // # of meters
+    language: string, // language code
+    types: oneOf(['geocode', 'address', 'establishment', '(regions)', '(cities)',
+                  'locality', 'sublocality', 'postal_code', 'country', 'administrative_area_level_1', 'administrative_area_level_2']),
+    components: string,
+    strictbounds: bool
+  })
+  // MUI props
   handlePlaceSelect: func,
   floatingLabelText: string,
   anchorOrigin: object,
